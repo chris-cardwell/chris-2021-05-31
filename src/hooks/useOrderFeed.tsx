@@ -54,6 +54,13 @@ export function useOrderFeed({
   const bufferedData = useRef<BufferData>({ bids: {}, asks: {} });
   const handleError = useErrorHandler();
 
+  /**
+   * this function is called on every incoming websocket message.
+   * snapshots are dispatched right away. deltas are calculated and
+   * stored in a ref buffer until a setInterval dispatches them
+   * every so often. this is to keep the render load steady despite
+   * the frequency of the incoming websocket messages
+   */
   const onMessage = useCallback(
     (messageEvent: MessageEvent) => {
       const response = JSON.parse(messageEvent?.data) as OrderFeedMessage;
@@ -85,7 +92,10 @@ export function useOrderFeed({
   );
 
   /**
-   *
+   * this useEffect simply dispatches the current buffered data
+   * every 250ms. it also has a cleanup callback function to
+   * clear the interval as well as ensure the websocket is closed
+   * when the calling component unmounts.
    */
   useEffect(() => {
     const bufferInterval = setInterval(() => {
@@ -104,6 +114,11 @@ export function useOrderFeed({
     };
   }, []);
 
+  /**
+   * handleError() is required here because Error Boundaries do not catch errors for
+   * event handlers by default, so a simple `throw` won't work.
+   * https://reactjs.org/docs/error-boundaries.html#introducing-error-boundaries
+   */
   const onError = useCallback(
     (ev: Event) => {
       handleError(
@@ -117,6 +132,13 @@ export function useOrderFeed({
     subscribeToProductOrderFeed(state.productFeedSubscription);
   }, [state.productFeedSubscription]);
 
+  /**
+   * this useEffect is responsible for opening the websocket connection
+   * when the calling component mounts.
+   *
+   * it also serves as the spot where the contrived forced error throws
+   * the error.
+   */
   useEffect(() => {
     if (forceErrorFlag) {
       throw new Error(
@@ -136,6 +158,14 @@ export function useOrderFeed({
     }
   }, [forceErrorFlag, onError, onMessage, onOpen]);
 
+  /**
+   * this useEffect is responsible for changing subscriptions. if the
+   * productFeedSubscription parameter from the calling component falls
+   * out of sync with this hook's state.productFeedSubscription, this useEffect
+   * will unsubscribe to the feed in state.productFeedSubscription, and then
+   * subscribe to the feed in productFeedSubscription. it will then dispatch to
+   * sync back up.
+   */
   useEffect(() => {
     if (
       webSocket.current &&
