@@ -1,0 +1,20 @@
+.button {
+  color: #cbced3;
+  border-radius: 5px;
+  border: none;
+  height: 100%;
+  margin: 5px;
+  padding: 15px;
+}
+
+.primary {
+  background-color: #5741d9;
+}
+
+.secondary {
+  background-color: #1cb91c;
+}
+
+.danger {
+  background-color: #b91c1c;
+}

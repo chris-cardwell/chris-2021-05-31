@@ -1,0 +1,7 @@
+.groupSelect {
+  justify-content: flex-end;
+  background-color: #303a48;
+  color: #cbced3;
+  margin: 5px;
+  border-radius: 3px;
+}
