@@ -5,7 +5,7 @@ import { ErrorFallback } from "./ErrorFallback";
 describe("ErrorFallback", () => {
   const defaultProps: FallbackProps = {
     error: Error("test error message"),
-    resetErrorBoundary: () => {}, //is this the best way to populate a noop function
+    resetErrorBoundary: () => {},
   };
 
   it("renders", () => {

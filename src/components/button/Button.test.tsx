@@ -15,7 +15,7 @@ describe("Button", () => {
     expect(element).toBeInTheDocument();
   });
 
-  let count = 0; //is this okay to test button?
+  let count = 0;
   it("calls it's onClick", () => {
     const { getByText } = render(
       <Button {...defaultProps} onClick={() => count++} />
