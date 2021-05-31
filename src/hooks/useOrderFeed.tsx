@@ -10,7 +10,7 @@ import {
   OrderData,
 } from "../types";
 import { useErrorHandler } from "react-error-boundary";
-import { OrderFeedReducer } from "../components/orderbook/OrderBookReducer";
+import { OrderFeedReducer } from "../components/orderFeed/OrderFeedReducer";
 import { applyOrderDataDelta } from "../utils/utils";
 
 const initialState: OrderFeedState = {
