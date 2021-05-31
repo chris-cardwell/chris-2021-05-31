@@ -56,7 +56,7 @@ export function OrderBook() {
     UsdDenomination.TwentyFiveCents,
   ];
 
-  const priceGroupSelectorOptions =
+  const usdDenominationSelectorOptions =
     productFeedSubscription === Product.XBTUSD ? xbtOptions : ethOptions;
 
   return (
@@ -65,7 +65,7 @@ export function OrderBook() {
         <p className={styles.title}>Order Book | {productFeedSubscription}</p>
 
         <UsdDenominationSelector value={grouping} onChange={setGrouping}>
-          {priceGroupSelectorOptions.map((option) => (
+          {usdDenominationSelectorOptions.map((option) => (
             <UsdDenominationSelector.Option key={option} value={option}>
               {`Group ${option.toLocaleString(undefined, {
                 minimumFractionDigits: 2,

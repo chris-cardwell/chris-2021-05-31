@@ -5,7 +5,7 @@ import {
   UsdDenominationSelectorProps,
 } from "./UsdDenominationSelector";
 
-describe("Price Group Selector", () => {
+describe("USD Denomination Selector", () => {
   const defaultProps: UsdDenominationSelectorProps = {
     value: UsdDenomination.FiftyCents,
     onChange: () => {},
