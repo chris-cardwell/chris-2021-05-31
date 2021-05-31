@@ -1,7 +1,5 @@
 import {
   OrderFeedState,
-  OrderFeedPriceBucket,
-  OrderData,
   OrderFeedAction,
   OrderFeedActionType,
 } from "../../types";
